@@ -85,3 +85,5 @@ else
 	docker run -i -p$(PORT):$(CONTAINER_PORT) --rm -t postman/newman_alpine33 run $(NEWMAN_URL) --delay-request $(DELAY_REQUEST) --global-var "APIURL=$(APIURL)"  --global-var "USERNAME=$(USERNAME)" --global-var "EMAIL=$(EMAIL)" --global-var "PASSWORD=$(PASSWORD)" 
 endif
 
+mod-upgrade: ## Run go-mod-upgrade for upgrade packages. Required https://github.com/oligot/go-mod-upgrade
+	go-mod-upgrade
