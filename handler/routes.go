@@ -2,8 +2,8 @@ package handler
 
 import (
 	"github.com/alpody/fiber-realworld/utils"
+	jwtware "github.com/gofiber/contrib/jwt"
 	"github.com/gofiber/fiber/v2"
-	jwtware "github.com/gofiber/jwt/v3"
 )
 
 func (h *Handler) Register(r *fiber.App) {
