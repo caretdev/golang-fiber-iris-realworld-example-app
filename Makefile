@@ -87,3 +87,6 @@ endif
 
 mod-upgrade: ## Run go-mod-upgrade for upgrade packages. Required https://github.com/oligot/go-mod-upgrade
 	go-mod-upgrade
+
+check-critic: ## Run gocritic for static code analysis. Required https://github.com/go-critic/go-critic 
+	gocritic check -enableAll ./...
