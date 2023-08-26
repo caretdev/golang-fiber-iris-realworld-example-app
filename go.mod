@@ -1,9 +1,9 @@
 module github.com/alpody/fiber-realworld
 
-go 1.20
+go 1.21
 
 require (
-	github.com/go-playground/validator/v10 v10.15.0
+	github.com/go-playground/validator/v10 v10.15.1
 	github.com/gofiber/contrib/jwt v1.0.4
 	github.com/gofiber/fiber/v2 v2.48.0
 	github.com/gofiber/swagger v0.1.12
@@ -13,8 +13,8 @@ require (
 	github.com/swaggo/swag v1.16.1
 	golang.org/x/crypto v0.12.0
 	// gorm.io/driver/postgres v1.3.8
-	gorm.io/driver/sqlite v1.5.2
-	gorm.io/gorm v1.25.3
+	gorm.io/driver/sqlite v1.5.3
+	gorm.io/gorm v1.25.4
 )
 
 require (
