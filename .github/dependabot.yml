@@ -18,6 +18,9 @@ updates:
       # Disable all pull requests for Docker dependencies
     labels: 
     -  "dependency docker"
+    ignore:
+    - dependency-name: "*"
+      update-types: ["version-update:semver-major", "version-update:semver-minor", "version-update:semver-patch"]
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule: 
