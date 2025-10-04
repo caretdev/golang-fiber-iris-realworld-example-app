@@ -1,5 +1,6 @@
+// You must first install   https://github.com/arsmn/fiber-swagger
+//
 //go:generate swag init
-//You must first install   https://github.com/arsmn/fiber-swagger
 package main
 
 import (
@@ -10,6 +11,7 @@ import (
 	"github.com/alpody/fiber-realworld/handler"
 	"github.com/alpody/fiber-realworld/router"
 	"github.com/alpody/fiber-realworld/store"
+	"github.com/gofiber/fiber/v2/middleware/redirect"
 	"github.com/gofiber/swagger"
 )
 
@@ -28,6 +30,12 @@ import (
 
 func main() {
 	r := router.New()
+	r.Use(redirect.New(redirect.Config{
+		Rules: map[string]string{
+			"/":           "/swagger/",
+		},
+		StatusCode: 301,
+	}))
 	r.Get("/swagger/*", swagger.HandlerDefault)
 	d := db.New()
 	db.AutoMigrate(d)

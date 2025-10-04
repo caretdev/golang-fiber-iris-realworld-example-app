@@ -1,28 +1,19 @@
-FROM golang:1.24.5-alpine3.22 AS builder
+FROM golang:1.24-trixie AS builder
 
-RUN apk add --update gcc musl-dev
+# RUN apk add --update gcc musl-dev
 RUN mkdir -p /myapp
 ADD . /myapp
 WORKDIR /myapp
 
-RUN adduser -u 10001 -D myapp
-
-RUN  go install github.com/swaggo/swag/cmd/swag@latest  &&  go generate . && GOOS=linux GOARCH=amd64 CGO_ENABLED=1  go build -ldflags='-extldflags=-static'  -o myapp .
-
-#RUN make build-static 
-RUN chown myapp: ./database
+RUN  go install github.com/swaggo/swag/cmd/swag@latest  &&  go generate . && GOOS=linux CGO_ENABLED=1  go build -ldflags='-extldflags=-static'  -o myapp
 
 
-FROM scratch 
+FROM containers.intersystems.com/intersystems/iris-community:latest-cd
 
-COPY --from=builder /etc/passwd /etc/passwd
-USER myapp
+COPY --from=builder /myapp/myapp /myapp
+COPY health.sh /health.sh
+COPY irisinit.sh /irisinit.sh
 
-WORKDIR /myapp
+HEALTHCHECK --interval=30s --timeout=30s --start-period=20s --retries=3 CMD [ "/health.sh" ]
 
-#COPY --from=builder /etc/ssl/certs/ /etc/ssl/certs/
-COPY --from=builder /myapp/myapp ./myapp
-COPY --from=builder /myapp/database ./database
-VOLUME ./database
-CMD ["./myapp"]
-
+CMD [ "--after", "/irisinit.sh" ]

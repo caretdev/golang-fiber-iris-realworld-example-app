@@ -9,7 +9,7 @@ export APIURL=http://$(HOST):$(PORT)/api
 
 #export ROOT=$(realpath $(dir $(lastword $(MAKEFILE_LIST))))
 GOOS=linux
-GOARCH=amd64
+GOARCH=arm64
 APP=fiber-rw
 APP_STATIC=$(APP)-static
 LDFLAGS="-w -s -extldflags=-static"
@@ -40,10 +40,10 @@ generate: ## Generate swagger docs. Required https://github.com/gofiber/swagger
 	go generate .	
 
 build: ## Build project with dynamic library(see shared lib with "ldd <your_file>") 
-	GOOS=$(GOOS) GOARCH=$(GOARCH) go build -race -o $(APP) . 
+	GOOS=$(GOOS) GOARCH=$(GOARCH) CGO_ENABLED=1 go build -race -o $(APP) .
 
 build-static: ## Build project as single static linked executable file
-	GOOS=$(GOOS) GOARCH=$(GOARCH) CGO_ENABLED=0  go build -ldflags=$(LDFLAGS)  -o $(APP_STATIC) .
+	GOOS=$(GOOS) GOARCH=$(GOARCH) CGO_ENABLED=0 go build -ldflags=$(LDFLAGS)  -o $(APP_STATIC) .
 
 build-image: ## Build docker image. Required https://www.docker.com  
 	docker build -t fiber-rw .

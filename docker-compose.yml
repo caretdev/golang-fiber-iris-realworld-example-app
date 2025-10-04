@@ -1,16 +1,23 @@
-version: "2"
 services:
-  fiber-realworld:
+  iris:
     build: .
     ports:
-      - "8585:8585"
-    volumes:
-      - ./database:/myapp/database
+      - 8872:1972
+      - 8873:52773
+      - 8585:8585
+    environment:
+      - IRIS_NAMESPACE=REALWORLD
+      - IRIS_USERNAME=realworlduser
+      - IRIS_PASSWORD=realworldpass
+      - GORM_DSN=iris://realworlduser:realworldpass@localhost:1972/REALWORLD
   newman-checker:
-    image: postman/newman_alpine33
+    image: postman/newman
+    depends_on:
+      iris:
+        condition: service_healthy
     command:
       run https://github.com/gothinkster/realworld/raw/main/api/Conduit.postman_collection.json
-      --global-var "APIURL=http://fiber-realworld:8585/api"
+      --global-var "APIURL=http://iris:8585/api"
       --global-var "USERNAME=user2021"
       --global-var "EMAIL=user2021@example.com"
       --global-var "PASSWORD=password"

@@ -2,6 +2,7 @@ package handler
 
 import (
 	"encoding/json"
+	"flag"
 	"log"
 	"os"
 	"testing"
@@ -14,7 +15,6 @@ import (
 	"github.com/alpody/fiber-realworld/user"
 	"github.com/gofiber/fiber/v2"
 
-	// _ "gorm.io/driver/postgres"
 	_ "gorm.io/driver/sqlite"
 	"gorm.io/gorm"
 )
@@ -27,10 +27,16 @@ var (
 	e  *fiber.App
 )
 
+var (
+	useContainer bool
+)
+
 func TestMain(m *testing.M) {
-	setup()
+	flag.BoolVar(&useContainer, "container", true, "Use container image.")
+	flag.Parse()
+	// setup()
 	code := m.Run()
-	tearDown()
+	// tearDown()
 	os.Exit(code)
 }
 
@@ -39,7 +45,7 @@ func authHeader(token string) string {
 }
 
 func setup() {
-	d = db.TestDB()
+	d = db.TestDB(useContainer)
 	db.AutoMigrate(d)
 	us = store.NewUserStore(d)
 	as = store.NewArticleStore(d)
