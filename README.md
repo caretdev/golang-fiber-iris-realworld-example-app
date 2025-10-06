@@ -70,12 +70,11 @@ Switch to the repo folder
 ➜ cd $GOPATH/src/github.com/caretdev/golang-fiber-iris-realworld-example-app
 ```
 
-### Working with makefile
-
-If you had installed make utility, you can simply run and select command. 
+### Generate Swagger docs
 
 ```bash
-make help
+➜ go install github.com/swaggo/swag/cmd/swag@latest
+➜ go generate .
 ```
 
 ### Install dependencies
