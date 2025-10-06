@@ -12,34 +12,25 @@ We've gone to great lengths to adhere to the [Golang/Fiber](https://gofiber.io) 
 
 For more information on how to this works with other frontends/backends, head over to the [RealWorld](https://github.com/gothinkster/realworld) repo.
 
+# InterSystems IRIS
+
+[Original project](https://github.com/caretdev/golang-fiber-iris-realworld-example-app) were slighltly adopted to work with [InterSystems IRIS](https://www.intersystems.com/products/intersystems-iris/)
 
 ## Quick start
 
 Before quick start you must install [docker](https://www.docker.com), [docker-compose](https://docs.docker.com/compose/)  and [Git](https://git-scm.com/).
 
-**Starts ready docker container**
-
-```bash
-mkdir database && chmod o+w ./database && docker run -d -p 8585:8585 -v $(pwd)/database:/myapp/database alpody/golang-fiber-real-world 
-```
-
 **Builds and tests**
 
 ```bash
-git clone https://github.com/alpody/golang-fiber-realworld-example-app.git
-cd golang-fiber-realworld-example-app 
-chmod a+x start.sh
-./start.sh
+git clone https://github.com/caretdev/golang-fiber-iris-realworld-example-app.git
+cd golang-fiber-iris-realworld-example-app 
+docker compose up -d
 ```
-Press <code>Ctrl + c</code> for stop application.
-
-See asciinema this process:
-
-[![asciicast](https://asciinema.org/a/eyZ5upSyv9IJyE36g4sj3ZBBw.svg)](https://asciinema.org/a/eyZ5upSyv9IJyE36g4sj3ZBBw)
 
 ## Getting started
 
-### Install Golang (go1.11+)
+### Install Golang (go1.24+)
 
 Please check the official golang installation guide before you start. [Official Documentation](https://golang.org/doc/install)
 Also make sure you have installed a go1.11+ version.
@@ -64,19 +55,19 @@ For more info and detailed instructions please check this guide: [Setting GOPATH
 Clone this repository:
 
 ```bash
-➜ git clone https://github.com/alpody/golang-fiber-realworld-example-app.git
+➜ git clone https://github.com/caretdev/golang-fiber-iris-realworld-example-app.git
 ```
 
 Or simply use the following command which will handle cloning the repo:
 
 ```bash
-➜ go get -u -v github.com/alpody/golang-fiber-realworld-example-app
+➜ go get -u -v github.com/caretdev/golang-fiber-iris-realworld-example-app
 ```
 
 Switch to the repo folder
 
 ```bash
-➜ cd $GOPATH/src/github.com/alpody/golang-fiber-realworld-example-app
+➜ cd $GOPATH/src/github.com/caretdev/golang-fiber-iris-realworld-example-app
 ```
 
 ### Working with makefile
